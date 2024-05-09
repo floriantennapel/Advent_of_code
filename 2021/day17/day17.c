@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-const int xMin = 248;
-const int xMax = 285;
-const int yMin = -85;
-const int yMax = -56;
+#define X_MIN 248
+#define X_MAX 285
+#define Y_MIN -85
+#define Y_MAX -56
 
-const int xMinV = 22; // smallest value with triangle number larger than xMin
-const int xMaxV = xMax;
-const int yMinV = yMin;
-const int yMaxV = (yMin * (yMin - 1)) / 2 + yMin;
+const int xMinV = 22; // smallest value with triangle number larger than X_MIN
+const int xMaxV = X_MAX;
+const int yMinV = Y_MIN;
+const int yMaxV = (Y_MIN * (Y_MIN - 1)) / 2 + Y_MIN;
 
 int withinTarget(int* pos) {
-  return (pos[0] >= xMin) && (pos[0] <= xMax) &&
-         (pos[1] >= yMin) && (pos[1] <= yMax);
+  return (pos[0] >= X_MIN) && (pos[0] <= X_MAX) &&
+         (pos[1] >= Y_MIN) && (pos[1] <= Y_MAX);
 }
 
 int validShot(int* velocity) {
@@ -20,7 +20,7 @@ int validShot(int* velocity) {
   int d_y = velocity[1];
   int pos[] = {d_x, d_y};
 
-  while (pos[0] <= xMax && pos[1] >= yMin) {
+  while (pos[0] <= X_MAX && pos[1] >= Y_MIN) {
     if (withinTarget(pos)) {
       return 1;
     }
