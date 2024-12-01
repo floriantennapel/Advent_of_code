@@ -1,4 +1,5 @@
 from sys import stdin
+from collections import Counter
 
 l1 = []
 l2 = []
@@ -13,7 +14,5 @@ l2.sort()
 print(sum(abs(a-b) for a, b in zip(l1, l2)))
 
 # part 2
-counter = {}
-for d in l2:
-    counter[d] = counter.get(d, 0) + 1
-print(sum(a*counter.get(a, 0) for a in l1))
+counter = Counter(l2)
+print(sum(a*counter[a] for a in l1))
