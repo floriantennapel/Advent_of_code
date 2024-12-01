@@ -9,6 +9,7 @@ if [[ $BASE =~ day([0-9]+) ]]; then
   DAY=${BASH_REMATCH[1]}
 else
   echo "invalid directory name: $BASE"
+  exit 1
 fi
 
 if [ $DAY -lt 1 ] || [ $DAY -gt 25 ]; then
