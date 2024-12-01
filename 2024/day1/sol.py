@@ -4,6 +4,8 @@ from collections import Counter
 l1 = []
 l2 = []
 for l in stdin:
+    if l.strip() == '':
+        break
     a, b = (int(d) for d in l.split())
     l1.append(a)
     l2.append(b)

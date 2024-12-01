@@ -21,7 +21,6 @@ PATH_TO_AOC=""
 
 if [ ! -f "in" ]; then
   node "$PATH_TO_AOC/aoc_get.js" $DAY $PARENT_DIR > "in"
-  grep -v '^$' "in" > "tmp" && mv "tmp" "in"
 fi
 
 if [ -f "sol.py" ]; then
