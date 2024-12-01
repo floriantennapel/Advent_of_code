@@ -18,7 +18,7 @@ if (isNaN(year) || year < 2015 || year > 2035) {
 const cookie = ''; // your session cookie here 
 const url = `https://adventofcode.com/${year}/day/${day}/input`;
 fetch(url, {
-    methdo: 'GET',
+    method: 'GET',
     credentials: 'include',
     headers: {
         'Cookie': `session=${cookie}`
