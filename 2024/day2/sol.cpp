@@ -6,11 +6,12 @@
 
 using namespace std;
 
-bool is_safe(vector<int> report) // copy needs to happen here
+vector<int> reuse(20);
+bool is_safe(const vector<int>& report)
 {
-    adjacent_difference(begin(report), end(report), begin(report));
-    return all_of(++begin(report), end(report), [](int d) { return d >= 1 && d <= 3; })
-        || all_of(++begin(report), end(report), [](int d) { return d <= -1 && d >= -3; });
+    auto end_it = adjacent_difference(begin(report), end(report), begin(reuse));
+    return all_of(++begin(reuse), end_it, [](int d) { return d >= 1 && d <= 3; })
+        || all_of(++begin(reuse), end_it, [](int d) { return d <= -1 && d >= -3; });
 }
 
 int main()
@@ -40,8 +41,6 @@ int main()
     sum = 0;
     for (auto& r : reports) {
         bool found = false;
-        if (is_safe(r))
-            found = true;
         for (auto it = begin(r); !found && it != end(r); it++) {
             int tmp = *it;
             it = r.erase(it);
