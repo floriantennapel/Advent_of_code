@@ -1,29 +1,9 @@
 #include <iostream>
 #include <regex>
 #include <string>
-#include <vector>
 #include <sstream>
 
 using namespace std;
-
-long mul(const string& input)
-{
-    long sum = 0;
-    int a, b;
-    char c;
-
-    const regex re("mul\\([1-9][0-9]{0,2},[1-9][0-9]{0,2}\\)");
-
-    sregex_iterator it(begin(input), end(input), re);
-    sregex_iterator end;
-    for (; it != end; it++) {
-        stringstream str((*it).str().substr(4)); 
-        str >> a >> c >> b;
-        sum += a * b;
-    }
-
-    return sum;
-}
 
 int main()
 {
@@ -35,15 +15,41 @@ int main()
     while (getline(cin, line))
         input += line;
 
+    int a, b;
+    char c;
+    sregex_iterator end_it;
+
     // part 1
-    cout << mul(input) << '\n';
+    long sum = 0;
+    const regex re_p1("mul\\(\\d{1,3},\\d{1,3}\\)");
+    sregex_iterator it(begin(input), end(input), re_p1);
+    for (; it != end_it; it++) {
+        stringstream stream((*it).str().substr(4)); 
+        stream >> a >> c >> b;
+        sum += a * b;
+    }
+    cout << sum << '\n';
 
+    /* new shorter solution based on hyperneutrino's solution.
+     * I didn't know about matching several regexes simultaneously, but this is a much cleaner and more logical solution.
+     * My goal with AOC is to get better at programming, so I'm perfectly fine with trying to copy other peoples better solutions (of course after having solved it myself)
+     */
     // part 2
-    const regex dont_do("don't\\(\\).*?do\\(\\)");
-    const regex dont("don't\\(\\)");
-
-    input = regex_replace(input, dont_do, "");
-    smatch match;
-    regex_search(input, match, dont);
-    cout << mul(input.substr(0, match.position())) << '\n';
+    bool active = true;
+    sum = 0;
+    const regex re_p2("don't\\(\\)|do\\(\\)|mul\\(\\d{1,3},\\d{1,3}\\)");
+    it = {begin(input), end(input), re_p2};
+    for (; it != end_it; it++) {
+        string s = (*it).str(); 
+        if (s == "don't()")
+            active = false;
+        else if (s == "do()")
+            active = true;
+        else if (active) {
+            stringstream stream(s.substr(4)); 
+            stream >> a >> c >> b;
+            sum += a * b;
+        }
+    }
+    cout << sum << '\n';
 }
