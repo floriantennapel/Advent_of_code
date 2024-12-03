@@ -14,13 +14,11 @@ int main()
     unsigned char key[20];
 
     // part 1
-    char hexbuf[7];
     int i = 1;
     for (;;i++) {
         int n = sprintf((char*)key, "%s%d", secret.c_str(), i);
         MD5(key, n, hash);
-        sprintf(hexbuf, "%02x%02x%02x", hash[0], hash[1], hash[2]);
-        if (strncmp(hexbuf, "00000", 5) == 0) {
+        if (!hash[0] && !hash[1] && hash[2] < 16) {
             cout << i << '\n';
             break;
         }
