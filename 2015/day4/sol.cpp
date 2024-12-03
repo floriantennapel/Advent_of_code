@@ -21,7 +21,6 @@ int main()
         MD5(key, n, hash);
         sprintf(hexbuf, "%02x%02x%02x", hash[0], hash[1], hash[2]);
         if (strncmp(hexbuf, "00000", 5) == 0) {
-            cout << (int) hash[2] << '\n';
             cout << i << '\n';
             break;
         }
