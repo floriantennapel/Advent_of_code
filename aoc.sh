@@ -21,14 +21,16 @@ PATH_TO_AOC=""
 
 if [ ! -f "in" ]; then
   node "$PATH_TO_AOC/aoc_get.js" $DAY $PARENT_DIR > "in"
+  head -n -1 "in" > "tmp"
+  mv "tmp" "in"
 fi
 
 if [ -f "sol.py" ]; then
     python "sol.py" < "in"
 elif [ -f "sol.cpp" ]; then
-    g++ "sol.cpp" -O2 && ./a.out < "in"
+    g++ "sol.cpp" && ./a.out < "in"
 elif [ -f "sol.c" ]; then
-    gcc "sol.c" -O2 && ./a.out < "in"
+    gcc "sol.c" && ./a.out < "in"
 else
     echo "unknown language"
 fi

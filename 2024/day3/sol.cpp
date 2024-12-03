@@ -39,7 +39,7 @@ int main()
     cout << mul(input) << '\n';
 
     // part 2
-    const regex dont_do("don't\\(\\)[\\s\\S]*?do\\(\\)");
+    const regex dont_do("don't\\(\\).*?do\\(\\)");
     const regex dont("don't\\(\\)");
 
     input = regex_replace(input, dont_do, "");
