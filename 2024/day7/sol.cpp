@@ -5,24 +5,24 @@
 
 using namespace std;
 
-template<class It>
-bool is_valid(long target, long so_far, It first, It last, bool pt2 = false)
+template<class RIt>
+bool is_valid(long target, RIt r_first, RIt r_end, bool pt2 = false)
 {
-    if (so_far > target)
+    if (r_first+1 == r_end)
+        return target == *r_first;
+    if (*r_first > target)
         return false;
-    if (first == last)
-        return target == so_far;
-    if (is_valid(target, so_far + *first, first + 1, last, pt2))
+    if (is_valid(target - *r_first, r_first + 1, r_end, pt2))
         return true;
-    if (is_valid(target, so_far * *first, first + 1, last, pt2))
+    if (target % *r_first == 0 && is_valid(target / *r_first, r_first + 1, r_end, pt2))
         return true;
     if (pt2) {
-        string a = to_string(so_far), b = to_string(*first);
-        if (a.size() + b.size() > 18) // ingeger overflow
-            return false;
-
-        long concated = stol(a+b);
-        return is_valid(target, concated, first + 1, last, pt2);
+        string a = to_string(*r_first);
+        string ts = to_string(target);
+        if (ts.size() > a.size() && ts.ends_with(a)) {
+            long new_target = stol(ts.substr(0, ts.size()-a.size()));
+            return is_valid(new_target, r_first + 1, r_end, pt2);
+        }
     }
     return false;
 }
@@ -40,10 +40,10 @@ int main()
         while (s >> d)
             ns.push_back(d);
         
-        if (is_valid(target, 0, ns.begin(), ns.end())) {
+        if (is_valid(target, ns.rbegin(), ns.rend())) {
             sum_p1 += target;
             sum_p2 += target;
-        } else if (is_valid(target, 0, ns.begin(), ns.end(), true))
+        } else if (is_valid(target, ns.rbegin(), ns.rend(), true))
             sum_p2 += target;
     }
     cout << sum_p1 << '\n';
