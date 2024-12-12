@@ -93,11 +93,8 @@ int main()
         for (int j = 0; j < grid[0].size(); j++) {
             auto[a, p] = fences(grid, partitions, {i, j});
             sum_p1 += a*p;
-            if (a) {
-                int sides = 0;
-                sides += count_sides(partitions, partitions[i][j]);
-                sum_p2 += a*sides;
-            }
+            if (a)
+                sum_p2 += a * count_sides(partitions, partitions[i][j]);
         }
     }
 
