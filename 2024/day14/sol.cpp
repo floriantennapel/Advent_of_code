@@ -2,6 +2,7 @@
 #include <regex>
 #include <vector>
 #include <array>
+#include <thread>
 
 using namespace std;
 
