@@ -28,12 +28,12 @@ fn main() {
             .split(",")
             .map(|s| {s
                 .split("-")
-                .map(|splitted|splitted.parse::<usize>().unwrap())
+                .map(|sp|sp.parse::<usize>().unwrap())
                 .collect::<Vec<usize>>()}
             );
 
-    let mut sum_p1: usize = 0;
-    let mut sum_p2: usize = 0;
+    let mut sum_p1 = 0;
+    let mut sum_p2 = 0;
 
     for interval in intervals {
         let a = interval[0];
