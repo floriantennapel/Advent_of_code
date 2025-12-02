@@ -1,5 +1,3 @@
-use std::{fs::File, io::Read};
-
 fn is_invalid(n: &str, dividents: &[usize]) -> bool {
     let l = n.len();
     'divident_loop: for d in dividents {
@@ -25,11 +23,7 @@ fn is_invalid(n: &str, dividents: &[usize]) -> bool {
 fn main() {
     let primes = vec![2, 3, 5, 7, 11, 13, 17, 19, 23];
 
-    let mut file = File::open("../in").unwrap();
-    let mut input = String::new();
-    file.read_to_string(&mut input).unwrap();
-
-    let intervals = input
+    let intervals = include_str!("../../in")
             .trim()
             .split(",")
             .map(|s| {s
