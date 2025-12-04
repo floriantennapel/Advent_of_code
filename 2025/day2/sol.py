@@ -5,7 +5,7 @@ def is_invalid(n_str, dividents):
             break
         if l%d != 0:
             continue
-        s = int(l/d)
+        s = l // d
         orig = n_str[:s]
 
         for i in range(1, d):
